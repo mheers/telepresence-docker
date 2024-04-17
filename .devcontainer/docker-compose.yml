@@ -12,8 +12,8 @@ services:
     entrypoint: ["sleep", "infinity"]
     devices:
       - "/dev/net/tun"
-    ports:
-      - "33265:33265"
+    # ports:
+    #   - "33265:33265"
 
     # telepresence connector-foreground --name docker-k3d-k3s-default-dex-cn --address :33265 --embed-network
 

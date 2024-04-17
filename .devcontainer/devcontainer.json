@@ -1,0 +1,16 @@
+{
+    "name": "Telepresence",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "telepresence",
+    "remoteUser": "root",
+    "workspaceFolder": "/home",
+    "forwardPorts": [],
+    "mounts": [
+        "source=${localEnv:HOME}/.kube/config,target=/root/.kube/config,type=bind",
+        "source=${localWorkspaceFolder}/,target=/home,type=bind"
+    ],
+    "remoteEnv": {
+        "CAP_ADD": "NET_ADMIN",
+        "DEVICES": "/dev/net/tun"
+    }
+}
