@@ -1,10 +1,20 @@
-FROM datawire/telepresence:2.17.0
+FROM golang:1.22-alpine AS build
 
-# Install curl and nano
-RUN apk add --no-cache curl nano
+# Turning off Cgo is required to install Delve on Alpine.
+ENV CGO_ENABLED=0
+
+# Download and install the Delve debugger.
+RUN go install github.com/go-delve/delve/cmd/dlv@latest
+
+FROM datawire/telepresence:2.19.1
+
+COPY --from=build /go/bin/dlv /bin/dlv
+
+# Install a few tools
+RUN apk add --no-cache curl nano jq file
 
 # Install kubectl
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.29.0/bin/linux/amd64/kubectl && \
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.29.1/bin/linux/amd64/kubectl && \
     chmod +x kubectl && \
     mv kubectl /usr/local/bin/
 

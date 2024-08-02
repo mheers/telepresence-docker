@@ -15,3 +15,7 @@ Run `docker compose up` and then `docker compose exec telepresence bash`. Inside
 If you are using VSCode, you can open this repository in a dev container and have the same environment as the docker-compose setup.
 
 In the dev container, you can run `telepresence connect` and have your usual workflow.
+
+#### k3d/k3s
+
+You probably have to change the kubeconfigs cluster server config from something like https://0.0.0.0:41431 to your network adress like https://192.168.1.152:41431, remove the certificate-authority-data and add `insecure-skip-tls-verify: true`.
